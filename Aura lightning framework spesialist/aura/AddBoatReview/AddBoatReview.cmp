@@ -1,0 +1,42 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	 <aura:attribute name="boat" type="Boat__c"/>
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    <aura:attribute name="boatReview" type="BoatReview__c"/>
+    <aura:attribute access="private" name="recordError" type="String"/>
+    <aura:registerEvent name="boatReviewAdded" type="c:BoatReviewAdded" />
+    <!--<aura:dependency resource="markup://force:showToast" type="EVENT"/>-->
+    <force:recordData aura:id="service"
+                      
+                      
+                      fields="Id,Name,Comment__c, Rating__c, Boat__c"
+                      targetError="{!v.recordError}"
+                      targetFields="{!v.boatReview}"
+                      
+                      recordUpdated="{!c.onRecordUpdated}"
+                      />
+    
+    
+    
+    <lightning:layout multipleRows="true">
+            <lightning:layoutItem size="12" padding="around-small">
+                <lightning:input name="title" label="Title" value="{!v.boatReview.Name}"/>
+            </lightning:layoutItem>
+
+            <lightning:layoutItem size="12" padding="around-small">
+                <label class="slds-form-element__label" for="input-id-01">Description</label>
+                <lightning:inputRichText value="{!v.boatReview.Comment__c}" disabledCategories="FORMAT_FONT"/>
+            </lightning:layoutItem>
+        	<lightning:layoutItem size="12" padding="around-small">
+            	<label class="slds-form-element__label" for="input-id-01">Rating</label>
+					<ul class="slds-post__footer-actions-list slds-list_horizontal">
+                        <li class="slds-col slds-item slds-m-right_medium">
+                        	<c:FiveStarRating value="{!v.boatReview.Rating__c}" />
+
+                    	</li>
+    				</ul>
+             </lightning:layoutItem>
+            <lightning:layoutItem size="12" class="slds-align--absolute-center">
+                <lightning:button iconName="utility:save" label="Submit" onclick="{!c.onSave}"/>
+            </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>

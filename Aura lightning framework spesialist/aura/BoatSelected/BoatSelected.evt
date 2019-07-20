@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" description="BoatSelected fired from BoatTileController's onBoatClick handler">
+    <aura:attribute name="boat" type="Boat__c"/>
+</aura:event>
